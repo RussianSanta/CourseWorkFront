@@ -2,120 +2,52 @@ import { apiUrl } from "@/assets/config";
 import axios from "axios";
 
 export default {
-    branches: {
-        resourceUrl: "branches",
-        getAll() {
+    home: {
+        resourceUrl: "home",
+        getRooms() {
             return axios({
-                url: `${apiUrl}/${this.resourceUrl}`,
-                method: "GET"
-            });
-        },
-        newBranch(branch) {
-            return axios({
-                    url: `${apiUrl}/${this.resourceUrl}`,
-                    method: "POST",
-                    data: branch
-                }
-            )
-        },
-        updateBranch(branch) {
-            return axios({
-                    url: `${apiUrl}/${this.resourceUrl}/${branch.id}`,
-                    method: "PUT",
-                    data: branch
-                }
-            )
-        },
-        deleteBranch(branch) {
-            return axios({
-                    url: `${apiUrl}/${this.resourceUrl}/${branch.id}`,
-                    method: "DELETE",
-                }
-            )
-        }
-    },
-
-    calls: {
-        resourceUrl: "calls",
-        getAll() {
-            return axios({
-                url: `${apiUrl}/${this.resourceUrl}`,
-                method: "GET"
-            });
-        }
-    },
-
-    messages: {
-        resourceUrl: "messages",
-        getAll() {
-            return axios({
-                url: `${apiUrl}/${this.resourceUrl}`,
-                method: "GET"
-            });
-        }
-    },
-
-    rooms: {
-        resourceUrl: "rooms",
-        getAll() {
-            return axios({
-                url: `${apiUrl}/${this.resourceUrl}`,
-                method: "GET"
+                url: `${apiUrl}/${this.resourceUrl}/all`,
+                method: "GET",
             });
         },
         newRoom(room) {
             return axios({
-                    url: `${apiUrl}/${this.resourceUrl}`,
+                url: `${apiUrl}/${this.resourceUrl}/new`,
+                method: "POST",
+                data: room
+            });
+        },
+        connectRoom(room) {
+            return axios({
+                    url: `${apiUrl}/${this.resourceUrl}/connect`,
                     method: "POST",
                     data: room
-                }
-            )
-        },
-        updateRoom(room) {
-            return axios({
-                    url: `${apiUrl}/${this.resourceUrl}/${room.id}`,
-                    method: "PUT",
-                    data: room
-                }
-            )
-        },
-        deleteRoom(room) {
-            return axios({
-                    url: `${apiUrl}/${this.resourceUrl}/${room.id}`,
-                    method: "DELETE",
                 }
             )
         }
     },
 
-    users: {
-        resourceUrl: "users",
-        getAll() {
+    rooms: {
+        resourceUrl: "room",
+        getMembers(roomId) {
             return axios({
-                url: `${apiUrl}/${this.resourceUrl}`,
-                method: "GET"
+                url: `${apiUrl}/${this.resourceUrl}/${roomId}/members`,
+                method: "GET",
             });
         },
-        newUser(user) {
+        joinRoom(roomId, member) {
             return axios({
-                url: `${apiUrl}/registration`,
-                method: "POST",
-                data: user
+                    url: `${apiUrl}/${this.resourceUrl}/${roomId}/connect`,
+                    method: "POST",
+                    data: member
                 }
             )
         },
-        updateUser(user) {
+        leaveRoom(roomId, member) {
             return axios({
-                    url: `${apiUrl}/${this.resourceUrl}/${user.id}`,
-                    method: "PUT",
-                    data: user
-                }
-            )
-        },
-        deleteUser(user) {
-            return axios({
-                    url: `${apiUrl}/${this.resourceUrl}/${user.id}`,
+                    url: `${apiUrl}/${this.resourceUrl}/${roomId}/leave`,
                     method: "DELETE",
+                    data: member
                 }
             )
         }
